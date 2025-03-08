@@ -1,0 +1,16 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5'
+}
+
+application{
+    mainClass = project.hasProperty('mainClass') ? project.mainClass : 'client'  // Default to 'Client' if no property is passed
+}

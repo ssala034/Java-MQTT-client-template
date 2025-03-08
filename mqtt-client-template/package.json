@@ -1,12 +1,24 @@
 {
-    "name": "python-mqtt-client-template",
+    "name": "mqtt-client-template",
     "version": "0.0.1",
-    "description": "A template that generates a Python MQTT client using MQTT.",
+    "description": "A template that generates a java MQTT client using MQTT.",
     "generator": {
       "renderer": "react",
       "apiVersion": "v1",
       "generator": ">=1.10.0 <2.0.0",
-      "supportedProtocols": ["mqtt"]
+      "supportedProtocols": ["mqtt"],
+      "parameters": {
+            "server": {
+              "description": "The server you want to use in the code.",
+              "required": true
+            }
+        }
+    },
+    "scripts": {
+        "test:clean": "rimraf src/main/java/client.java",
+        "test:generate": "asyncapi generate fromTemplate src/fixtures/asyncapi.yml ./ --output src/main/java --force-write --param server=dev",
+        "test:start": "gradle run -PmainClass=test",
+        "test": "npm run test:clean && npm run test:generate && npm run test:start"
     },
     "dependencies": {
       "@asyncapi/generator-react-sdk": "^0.2.25"

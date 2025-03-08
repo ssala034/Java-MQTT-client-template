@@ -1,18 +1,7 @@
-import { File, Text } from '@asyncapi/generator-react-sdk';
-import { TopicFunction } from '../components/TopicFunction'
-
-export default function ({ asyncapi, params }) {
-    let channels = asyncapi.channels().filterByReceive();  // Get all the channels that receive messages
-
-    // Generate Java code for each topic dynamically using TopicFunction
-    const topicMethods = TopicFunction({ channels });  // This will return Java methods as text
-    
-    return (
-    <File name="client.java">
-      {`import org.eclipse.paho.client.mqttv3.*;
+import org.eclipse.paho.client.mqttv3.*;
 
         public class client {
-            private static final String BROKER_URL = "${asyncapi.servers().get(params.server).url()}";
+            private static final String BROKER_URL = "tcp://test.mosquitto.org:1883";
             private static final String TOPIC = "temperature/changed";
 
             private MqttClient client;
@@ -34,7 +23,25 @@ export default function ({ asyncapi, params }) {
                 }
             }
 
-            ${topicMethods}
+            public void sendTemperatureDrop(String id) {
+        String topic = "temperature/dropped";
+        try {
+            MqttMessage message = new MqttMessage(id.getBytes());
+            client.publish(topic, message);
+            System.out.println("Temperature change sent: " + id);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        }public void sendTemperatureRise(String id) {
+        String topic = "temperature/risen";
+        try {
+            MqttMessage message = new MqttMessage(id.getBytes());
+            client.publish(topic, message);
+            System.out.println("Temperature change sent: " + id);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+        }
 
             public static void main(String[] args) {
                 client serviceClient = new client();
@@ -42,7 +49,4 @@ export default function ({ asyncapi, params }) {
                 // Simulate sending a temperature change
                 //serviceClient.sendTemperatureDrop("Sensor-1: 25°C");
             }
-        }`}
-    </File>
-  );
-}
+        }
