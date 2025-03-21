@@ -2,7 +2,7 @@
   - Inspired by `https://www.asyncapi.com/docs/tools/generator/generator-template`
 
 The client code is currently generated using asyncapi.yml is `src/fixtures`.
-Changed the AsyncAPI document given to the generaotr to fix your business needs.
+Changed the AsyncAPI document given to the generator to fit your business needs.
 
 To run it ensure your have java jdk 8 or higher, gradle, and async api generator.
 
