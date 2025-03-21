@@ -6,4 +6,4 @@ Follow `https://www.asyncapi.com/docs/tools/generator` to get asyncapi generator
 
 Run gradle build
 
-Run npm test at root. 
+Run npm test at root of mqtt-client-template 
