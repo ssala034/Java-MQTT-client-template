@@ -3,24 +3,25 @@
  * As input it requires a list of Channel models from the parsed AsyncAPI document
  */
 export function TopicFunction({ channels }) {
-    const topicsDetails = getTopics(channels)
-    let functions = ''
-  
-    topicsDetails.forEach((t) => {
-      functions += `public void send${t.name}(String id) {
+  const topicsDetails = getTopics(channels);
+  let functions = '';
+
+  topicsDetails.forEach((t) => {
+    functions += `
+    public void send${t.name}(String id) {
         String topic = "${t.topic}";
         try {
             MqttMessage message = new MqttMessage(id.getBytes());
             client.publish(topic, message);
-            System.out.println("Temperature change sent: " + id);
+            System.out.println("${t.name} change sent: " + id);
         } catch (MqttException e) {
             e.printStackTrace();
         }
-        }`
-    })
-  
-    return functions
-  }
+    }\n`;
+  });
+
+  return functions;
+}
   
   /*
    * This function returns a list of objects, one for each channel with two properties, name and topic

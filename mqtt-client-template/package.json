@@ -1,5 +1,5 @@
 {
-    "name": "mqtt-client-template",
+    "name": "java-mqtt-client-template",
     "version": "0.0.1",
     "description": "A template that generates a java MQTT client using MQTT.",
     "generator": {
@@ -15,7 +15,7 @@
         }
     },
     "scripts": {
-        "test:clean": "rimraf src/main/java/client.java",
+        "test:clean": "rimraf src/main/java/Client.java",
         "test:generate": "asyncapi generate fromTemplate src/fixtures/asyncapi.yml ./ --output src/main/java --force-write --param server=dev",
         "test:start": "gradle run -PmainClass=test",
         "test": "npm run test:clean && npm run test:generate && npm run test:start"

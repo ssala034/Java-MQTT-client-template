@@ -8,41 +8,44 @@ export default function ({ asyncapi, params }) {
     const topicMethods = TopicFunction({ channels });  // This will return Java methods as text
     
     return (
-    <File name="client.java">
-      {`import org.eclipse.paho.client.mqttv3.*;
+    <File name="Client.java">
+    {
+      
+`import org.eclipse.paho.client.mqttv3.*;
 
-        public class client {
-            private static final String BROKER_URL = "${asyncapi.servers().get(params.server).url()}";
-            private static final String TOPIC = "temperature/changed";
+public class Client {
+    private static final String BROKER_URL = "${asyncapi.servers().get(params.server).url()}";
+    private static final String TOPIC = "temperature/changed";
 
-            private MqttClient client;
+    private MqttClient client;
 
-            public client() {
-                try {
-                    // Generate a unique client ID
-                    String clientId = MqttClient.generateClientId();
+    public Client() {
+        try {
+            // Generate a unique client ID
+            String clientId = MqttClient.generateClientId();
                     
-                    // Create and connect the MQTT client
-                    client = new MqttClient(BROKER_URL, clientId);
-                    MqttConnectOptions options = new MqttConnectOptions();
-                    options.setCleanSession(true);
+            // Create and connect the MQTT client
+            client = new MqttClient(BROKER_URL, clientId);
+            MqttConnectOptions options = new MqttConnectOptions();
+            options.setCleanSession(true);
                     
-                    client.connect(options);
-                    System.out.println("Connected to MQTT broker: " + BROKER_URL);
-                } catch (MqttException e) {
-                    e.printStackTrace();
-                }
-            }
+            client.connect(options);
+            System.out.println("Connected to MQTT broker: " + BROKER_URL);
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
 
-            ${topicMethods}
+    ${topicMethods}
 
-            public static void main(String[] args) {
-                client serviceClient = new client();
+    public static void main(String[] args) {
+        Client serviceClient = new Client();
                 
-                // Simulate sending a temperature change
-                //serviceClient.sendTemperatureDrop("Sensor-1: 25°C");
-            }
-        }`}
+        // Simulate sending a temperature change
+        //serviceClient.sendTemperatureDrop("Sensor-1: 25°C");
+    }
+}`
+    }
     </File>
   );
 }

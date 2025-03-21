@@ -74,7 +74,7 @@ set CLASSPATH=%APP_HOME%\lib\mqtt-client-template.jar;%APP_HOME%\lib\org.eclipse
 
 
 @rem Execute mqtt-client-template
-"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MQTT_CLIENT_TEMPLATE_OPTS%  -classpath "%CLASSPATH%" Test %*
+"%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %MQTT_CLIENT_TEMPLATE_OPTS%  -classpath "%CLASSPATH%" Client %*
 
 :end
 @rem End local scope for the variables with windows NT shell

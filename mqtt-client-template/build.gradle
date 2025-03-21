@@ -12,5 +12,5 @@ dependencies {
 }
 
 application{
-    mainClass = project.hasProperty('mainClass') ? project.mainClass : 'client'  // Default to 'Client' if no property is passed
+    mainClass = project.hasProperty('mainClass') ? project.mainClass : 'Client'  // Default to 'Client' if no property is passed
 }
